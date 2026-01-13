@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import filterTable from './TableFilter';
 import * as XLSX from 'xlsx';
 import spellListJson from '../../public/spellList.json'
+import Navigation from './Navigate';
 
 
 
@@ -62,8 +63,9 @@ const SpellList = () => {
 
   return (
     <div>
+      <Navigation />
       <h1>Pathfinder Spells</h1>
-      <input type="text" id="filterInput" placeholder="Search for names or countries.."></input> <button type="submit" onClick={filterTable}>Search</button> <span id="searchLoading" disabled>Loading...</span>
+      <input type="text" id="filterInput" placeholder="Search for names or countries.."></input> <button type="submit" onClick={filterTable}>Search</button> <span id="searchLoading" hidden={true}>Loading...</span>
       {excelData ? (
           <table id='spellTable' className='spellTable'>
               <thead>
@@ -77,7 +79,7 @@ const SpellList = () => {
                   {excelData.map((row, index) => (
                       <tr key={index}>
                           {Object.values(row).map((cell, cellIndex) => (
-                              <td key={cellIndex}>{String(cell)}</td>
+                              <td key={cellIndex}><div className="cell-content">{String(cell)}</div></td>
                           ))}
                       </tr>
                   ))}

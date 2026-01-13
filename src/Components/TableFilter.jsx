@@ -7,7 +7,7 @@ function filterTable() {
   table = document.getElementById("spellTable");
   tr = table.getElementsByTagName("tr");
 
-  loadingText.setAttribute('disabled', 'false');
+  loadingText.setAttribute('hidden', 'false');
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 1; i < tr.length; i++) {
@@ -32,7 +32,7 @@ function filterTable() {
       }
     }
   }
-  loadingText.setAttribute('disabled', 'true');
+  loadingText.setAttribute('hidden', 'true');
 }
 
 export default filterTable;
