@@ -10,6 +10,7 @@ const SpellList = () => {
   const filePath = '/spell_full.xlsx'; // Reference the file in the public directory
   
   useEffect(() => {
+    document.title = "Pathfinder Spell List";
     if (spellListJson != null)
     {
       try{
