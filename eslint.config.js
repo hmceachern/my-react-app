@@ -15,10 +15,15 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...customGlobals,
+        ...globals.browser,
+        ...globals.jquery,
+        ...globals.node,
+      },
       parserOptions: {
         ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
+        ecmaFeatures: { jsx: true, },
         sourceType: 'module',
       },
     },
