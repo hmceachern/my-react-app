@@ -1,9 +1,9 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+} */
 
 .logo {
   height: 6em;
@@ -11,6 +11,7 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -48,7 +49,6 @@ spellTable {
   font-size: 0.9em;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  table-layout: auto;
   text-align: left;
 }
 
@@ -62,9 +62,12 @@ spellTable {
 .spellTable td {
   padding: 12px 15px;
   border: 1px solid #ddd;
-  column-width: auto;
-  height: 150px;
 }
+
+.spellTable td {
+  column-width: auto;
+}
+
 
 .spellTable tbody tr:nth-of-type(even) {
   background-color: #f3f3f3; /* Zebra striping */
@@ -73,3 +76,8 @@ spellTable {
 .spellTable tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
+
+.hidden-row {
+  display: none;
+}
+
