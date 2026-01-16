@@ -42,14 +42,14 @@
   color: #888;
 }
 
-spellTable {
+.spellTable {
   width: 100%;
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
-  min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: left;
+  column-width: auto;
 }
 
 .spellTable thead tr {
@@ -64,17 +64,19 @@ spellTable {
   border: 1px solid #ddd;
 }
 
-.spellTable td {
-  column-width: auto;
-}
-
-
 .spellTable tbody tr:nth-of-type(even) {
   background-color: #f3f3f3; /* Zebra striping */
 }
 
 .spellTable tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
+}
+
+.cell-content {
+  max-height: 100px; /* Set your desired max height */
+  white-space: nowrap;
+  overflow-y: auto;  /* Adds a vertical scrollbar if content exceeds max height */
+  overflow-x: hidden;
 }
 
 .hidden-row {

@@ -18,6 +18,7 @@ export const ParseExcel = () =>
 
     return (
     <div>
+        <Navigation />
         <h1>Parse Excel</h1>
         <input type="file" onChange={(e) => handleFile(e)} />
     </div>
