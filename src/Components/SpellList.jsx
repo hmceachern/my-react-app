@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import filterTable from './TableFilter';
 import * as XLSX from 'xlsx';
-import spellListJson from '../../public/spellList.json'
+import spellListJson from '../assets/spellList.json'
 import Navigation from './Navigate';
-
+import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 
 
 const SpellList = () => {
@@ -58,8 +58,17 @@ const SpellList = () => {
       fetchExcel();
     }
     
-    
   }, [])
+
+  // const data = useMemo(() => excelData, []);
+  // const columns = useMemo(() => GenerateColumns(excelData), [excelData]);
+
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   getCoreRowModel: getCoreRowModel(),
+  // });
+
 
   return (
     <div>
@@ -90,6 +99,59 @@ const SpellList = () => {
       )}
     </div>
   )
+  // return (
+  //   <div className="p-2">
+  //     <table>
+  //       <thead>
+  //         {table.getHeaderGroups().map((headerGroup) => (
+  //           <tr key={headerGroup.id}>
+  //             {headerGroup.headers.map((header) => (
+  //               <th key={header.id}>
+  //                 {header.isPlaceholder
+  //                   ? null
+  //                   : flexRender(
+  //                       header.column.columnDef.header,
+  //                       header.getContext(),
+  //                     )}
+  //               </th>
+  //             ))}
+  //           </tr>
+  //         ))}
+  //       </thead>
+  //       <tbody>
+  //         {table.getRowModel().rows.map((row) => (
+  //           <tr key={row.id}>
+  //             {row.getVisibleCells().map((cell) => (
+  //               <td key={cell.id}>
+  //                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
+  //               </td>
+  //             ))}
+  //           </tr>
+  //         ))}
+  //       </tbody>
+  //       <tfoot>
+  //         {table.getFooterGroups().map((footerGroup) => (
+  //           <tr key={footerGroup.id}>
+  //             {footerGroup.headers.map((header) => (
+  //               <th key={header.id}>
+  //                 {header.isPlaceholder
+  //                   ? null
+  //                   : flexRender(
+  //                       header.column.columnDef.footer,
+  //                       header.getContext(),
+  //                     )}
+  //               </th>
+  //             ))}
+  //           </tr>
+  //         ))}
+  //       </tfoot>
+  //     </table>
+  //     <div className="h-4" />
+  //     <button onClick={() => rerender()} className="border p-2">
+  //       Rerender
+  //     </button>
+  //   </div>
+  // )
 };
 
 export default SpellList;
