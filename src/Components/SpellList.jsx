@@ -197,7 +197,7 @@ const SpellList = () => {
                 table.setPageSize(Number(e.target.value))
               }}
             >
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[50, 100, 150, 200, 250].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
