@@ -65,7 +65,7 @@ const SpellList = () => {
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 50,
   })
 
   const data = useMemo(() => excelData, [excelData]);
@@ -89,31 +89,6 @@ const SpellList = () => {
       <Navigation />
       <h1>Pathfinder Spells</h1>
       <input type="text" id="filterInput" placeholder="Search for spells..."></input> <button type="submit" onClick={filterTable}>Search</button> <span id="searchLoading" hidden={true}>Loading...</span>
-      {/* {excelData ? (
-          <table id='spellTable' className='spellTable'>
-              <thead>
-                  <tr>
-                      {Object.keys(excelData[0]).map((key) => (
-                          <th key={key}>{key.replace('_', ' ')}</th>
-                      ))}
-                  </tr>
-              </thead>
-              <tbody>
-                  {excelData.map((row, index) => (
-                      <tr key={index}>
-                          {Object.values(row).map((cell, cellIndex) => (
-                              <td key={cellIndex} id={cellIndex}><div className="cell-content">
-                                {
-                                cellIndex == 0 ? <Link to={`/spell/:${String(cell)}`}>{String(cell)}</Link> : String(cell)
-                                }</div></td>
-                          ))}
-                      </tr>
-                  ))}
-              </tbody>
-          </table>
-      ) : (
-          <p>Loading data...</p>
-      )} */}
       {table && data && columns ? (
         <div>
           <table id='spellTable' className='spellTable'>
@@ -155,8 +130,10 @@ const SpellList = () => {
                   {table.getRowModel().rows.map((row) => (
                     <tr key={row.id}>
                       {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} id={cell.id} className="cell-content">
-                          {cell.column.columnDef.accessorKey == "name" ? <Link to={`/spell/${cell.getValue()}`}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Link> : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        <td key={cell.id} id={cell.id}>
+                          <div className="cell-content">
+                            {cell.column.columnDef.accessorKey == "name" ? <Link to={`/spell/${cell.getValue()}`}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Link> : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </div>
                         </td>
                       ))}
                     </tr>
@@ -237,59 +214,6 @@ const SpellList = () => {
       )}
     </div>
   )
-  // return (
-  //   <div className="p-2">
-  //     <table>
-  //       <thead>
-  //         {table.getHeaderGroups().map((headerGroup) => (
-  //           <tr key={headerGroup.id}>
-  //             {headerGroup.headers.map((header) => (
-  //               <th key={header.id}>
-  //                 {header.isPlaceholder
-  //                   ? null
-  //                   : flexRender(
-  //                       header.column.columnDef.header,
-  //                       header.getContext(),
-  //                     )}
-  //               </th>
-  //             ))}
-  //           </tr>
-  //         ))}
-  //       </thead>
-  //       <tbody>
-  //         {table.getRowModel().rows.map((row) => (
-  //           <tr key={row.id}>
-  //             {row.getVisibleCells().map((cell) => (
-  //               <td key={cell.id}>
-  //                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-  //               </td>
-  //             ))}
-  //           </tr>
-  //         ))}
-  //       </tbody>
-  //       <tfoot>
-  //         {table.getFooterGroups().map((footerGroup) => (
-  //           <tr key={footerGroup.id}>
-  //             {footerGroup.headers.map((header) => (
-  //               <th key={header.id}>
-  //                 {header.isPlaceholder
-  //                   ? null
-  //                   : flexRender(
-  //                       header.column.columnDef.footer,
-  //                       header.getContext(),
-  //                     )}
-  //               </th>
-  //             ))}
-  //           </tr>
-  //         ))}
-  //       </tfoot>
-  //     </table>
-  //     <div className="h-4" />
-  //     <button onClick={() => rerender()} className="border p-2">
-  //       Rerender
-  //     </button>
-  //   </div>
-  // )
 };
 
 function Filter({

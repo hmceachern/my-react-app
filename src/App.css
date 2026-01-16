@@ -73,8 +73,8 @@
 }
 
 .cell-content {
-  max-height: 200px; /* Set your desired max height */
-  max-width: 3000px;
+  max-height: 100px; /* Set your desired max height */
+  white-space: nowrap;
   overflow-y: auto;  /* Adds a vertical scrollbar if content exceeds max height */
   overflow-x: hidden;
 }
