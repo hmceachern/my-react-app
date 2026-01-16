@@ -1,72 +1,115 @@
-import React, { useMemo } from 'react';
-import { useReactTable, getCoreRowModel, flexRender, createColumnHelper } from '@tanstack/react-table';
+import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
 
-// Define a type for your data rows
-// Use a generic type or interface if the structure varies
-type RowObj = {
-  [key: string]: any; // Allows for arbitrary keys and values
+type Spell = {
+  name: string;
+  school: string;
+  subschool: string;
+  descriptor: string;
+  spell_level: string;
+  casting_time: string;
+  components: string;
+  costly_components: string;
+  range: string;
+  area: string;
+  effect: string;
+  targets: string;
+  duration: string;
+  dismissible: string;
+  shapeable: string;
+  saving_throw: string;
+  spell_resistance: string;
+  description: string;
+  description_formatted: string;
+  source: string;
+  full_text: string;
+  verbal: string;
+  somatic: string;
+  material: string;
+  focus: string;
+  divine_focus: string;
+  sor: string;
+  wiz: string;
+  cleric: string;
+  druid: string;
+  ranger: string;
+  bard: string;
+  paladin: string;
+  alchemist: string;
+  summoner: string;
+  witch: string;
+  inquisitor: string;
+  oracle: string;
+  antipaladin: string;
+  magus: string;
+  adept: string;
+  deity: string;
+  sla_level: string;
+  domain: string;
+  short_description: string;
+  acid: string;
+  air: string;
+  chaotic: string;
+  cold: string;
+  curse: string;
+  darkness: string;
+  death: string;
+  disease: string;
+  earth: string;
+  electricity: string;
+  emotion: string;
+  evil: string;
+  fear: string;
+  fire: string;
+  force: string;
+  good: string;
+  language_dependent: string;
+  lawful: string;
+  light: string;
+  mind_affecting: string;
+  pain: string;
+  poison: string;
+  shadow: string;
+  sonic: string;
+  water: string;
+  linktext: string;
+  id: string;
+  material_costs: string;
+  bloodline: string;
+  patron: string;
+  mythic_text: string;
+  augmented: string;
+  mythic: string;
+  bloodrager: string;
+  shaman: string;
+  psychic: string;
+  medium: string;
+  mesmerist: string;
+  occultist: string;
+  spiritualist: string;
+  skald: string;
+  investigator: string;
+  hunter: string;
+  haunt_statistics: string;
+  ruse: string;
+  draconic: string;
+  meditative: string;
+  summoner_unchained: string;
 };
 
-const GenerateColumns = ({ data }: { data: RowObj[] }) => {
-  // Ensure data is available before proceeding
-  if (!data || data.length === 0) {
-    return <div>No data available</div>;
-  }
+const columnHelper = createColumnHelper<Spell>();
 
-  // Dynamically generate column definitions using the keys from the first row
-  const columns = useMemo(() => {
-    const firstRow = data[0];
-    const keys = Object.keys(firstRow);
-    const columnHelper = createColumnHelper<RowObj>();
+function generateColumns(data: Spell[]): ColumnDef<Spell, any>[] {
+  if (!data || data.length === 0) return [];
 
-    return keys.map((key) =>
-      columnHelper.accessor(key, {
-        header: () => (
-          // Format the header name (e.g., capitalize, replace underscores)
-          <div>{key.charAt(0).toUpperCase() + key.slice(1)}</div>
-        ),
-        cell: (info) => (
-          // Use flexRender or just display the value
-          <div>{info.getValue()}</div>
-        ),
-      })
-    );
-  }, [data]); // Memoize columns based on data reference
+  const keys = Object.keys(data[0]) as (keyof Spell)[];
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
+  return keys.map(key => {
+    const spellkey = key.replaceAll('_', ' ');
+    return columnHelper.accessor(key, {
+      header: () => spellkey.charAt(0).toUpperCase() + spellkey.slice(1), // Capitalize first letter for header
+      cell: info => info.getValue(),
+    });
   });
+}
 
-  return (
-    <table>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(header.column.columnDef.header, header.getContext())}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-export default GenerateColumns;
+export default generateColumns;
